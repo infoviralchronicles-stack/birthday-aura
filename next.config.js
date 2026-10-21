@@ -45,12 +45,12 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/pageantwinners/:slug*.html',
+        source: '/pageantwinners/:slug.html',
         destination: '/profession/model',
         permanent: true,
       },
       {
-        source: '/pageantwinners/:slug*',
+        source: '/pageantwinners/:path*',
         destination: '/profession/model',
         permanent: true,
       },
