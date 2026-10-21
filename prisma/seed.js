@@ -18,7 +18,7 @@ async function main() {
       avatar: '/celebrities/clara-vance.jpg',
       twitter: 'https://twitter.com/birthdayaura',
       linkedin: 'https://linkedin.com/company/birthdayaura',
-      website: 'https://birthday-aura.vercel.app',
+      website: 'https://birthday-aura-plum.vercel.app',
     },
     create: {
       email: 'admin@birthdayaura.com',
@@ -29,7 +29,7 @@ async function main() {
       avatar: '/celebrities/clara-vance.jpg',
       twitter: 'https://twitter.com/birthdayaura',
       linkedin: 'https://linkedin.com/company/birthdayaura',
-      website: 'https://birthday-aura.vercel.app',
+      website: 'https://birthday-aura-plum.vercel.app',
     },
   });
   await prisma.user.updateMany({
