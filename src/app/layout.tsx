@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     icon: [{ url: '/favicon.svg?v=2', type: 'image/svg+xml' }],
     shortcut: '/favicon.svg?v=2',
   },
+  verification: {
+    google: 'oVti28beRpy1KJPGofwR2wk-7WUNry0VJmVYCcpWpDQ',
+  },
 };
 
 export default function RootLayout({
