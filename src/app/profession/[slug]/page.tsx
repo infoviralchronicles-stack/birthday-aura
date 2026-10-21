@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { CELEBRITY_DIRECTORY } from '@/lib/birthdayData';
 import { ArrowLeft } from 'lucide-react';
@@ -37,6 +38,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function ProfessionDirectoryPage({ params }: Props) {
   const rawSlug = decodeURIComponent(params.slug).toLowerCase();
+
+  // Strip .html extension if present
+  if (rawSlug.endsWith('.html')) {
+    redirect(`/profession/${rawSlug.replace(/\.html$/, '')}`);
+  }
+
+  // Canonicalize unhyphenated slugs (e.g. 'soccerplayer' -> 'soccer-player', 'movieactor' -> 'movie-actor')
+  const matchedCanonicalCeleb = CELEBRITY_DIRECTORY.find(
+    (c) => toSlug(c.profession).replace(/-/g, '') === rawSlug.replace(/-/g, '')
+  );
+  if (
+    matchedCanonicalCeleb &&
+    toSlug(matchedCanonicalCeleb.profession) !== rawSlug &&
+    !['all', 'actors', 'musicians', 'creators', 'athletes'].includes(rawSlug)
+  ) {
+    redirect(`/profession/${toSlug(matchedCanonicalCeleb.profession)}`);
+  }
+
   const currentYear = new Date().getFullYear();
 
   // Match either category (e.g. 'actors', 'musicians', 'creators', 'athletes') or specific profession (e.g. 'movie-actor')

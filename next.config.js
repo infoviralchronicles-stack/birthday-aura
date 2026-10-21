@@ -12,6 +12,35 @@ const nextConfig = {
       '/**': ['./prisma/**/*'],
     },
   },
+  async redirects() {
+    return [
+      {
+        source: '/profession/soccerplayer.html',
+        destination: '/profession/soccer-player',
+        permanent: true,
+      },
+      {
+        source: '/profession/soccerplayer',
+        destination: '/profession/soccer-player',
+        permanent: true,
+      },
+      {
+        source: '/profession/:slug.html',
+        destination: '/profession/:slug',
+        permanent: true,
+      },
+      {
+        source: '/people/:slug.html',
+        destination: '/people/:slug',
+        permanent: true,
+      },
+      {
+        source: '/birthdays/:slug.html',
+        destination: '/birthdays/:slug',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
