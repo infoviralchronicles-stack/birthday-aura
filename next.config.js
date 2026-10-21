@@ -44,6 +44,31 @@ const nextConfig = {
         destination: '/birthdays/:slug',
         permanent: true,
       },
+      {
+        source: '/pageantwinners/:slug*.html',
+        destination: '/profession/model',
+        permanent: true,
+      },
+      {
+        source: '/pageantwinners/:slug*',
+        destination: '/profession/model',
+        permanent: true,
+      },
+      {
+        source: '/pageantwinners.html',
+        destination: '/profession/model',
+        permanent: true,
+      },
+      {
+        source: '/pageantwinners',
+        destination: '/profession/model',
+        permanent: true,
+      },
+      {
+        source: '/:path*.html',
+        destination: '/:path*',
+        permanent: true,
+      },
     ];
   },
 };
