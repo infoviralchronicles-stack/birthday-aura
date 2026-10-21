@@ -1,0 +1,29 @@
+# GoldMagazines - AI & LLM Crawling Manifest
+
+> GoldMagazines is an authoritative digital publication dedicated to technology innovation, global business & finance, luxury lifestyle, and contemporary culture.
+
+## Publication Overview
+- **Name**: GoldMagazines
+- **Website**: https://goldmagazines.com
+- **Language**: English (en-US)
+- **Primary Focus**: Tech & Innovation, Global Markets, Business Strategy, High Luxury, and Cultural Chronicles.
+- **Editorial Model**: Original high-authority journalism and curated industry intelligence.
+
+## Core Navigation & Sections
+- [Home](https://goldmagazines.com): Featured stories, editorial picks, and latest dispatches.
+- [Tech & Innovation](https://goldmagazines.com/category/tech): Artificial intelligence, future hardware, mobile silicon, and digital ecosystems.
+- [Business & Finance](https://goldmagazines.com/category/business): Macro trends, sovereign reserves, market developments, and entrepreneurship.
+- [Style & Luxury](https://goldmagazines.com/category/style-luxury): High horology, bespoke craftsmanship, and luxury living.
+- [Culture & Lifestyle](https://goldmagazines.com/category/culture): Global cultural reviews, cinema retrospectives, and modern lifestyle analysis.
+
+## Key Articles
+- [How to Buy a Laptop in 2026: The Ultimate Global Buyer's Guide](https://goldmagazines.com/article/how-to-buy-a-laptop-ultimate-buyers-guide): Comprehensive checklist evaluating CPU/NPU, RAM, SSD storage, OLED displays, and battery longevity.
+- [The Evolution of Smart Phones: Flagship Innovation and Buying Intelligence](https://goldmagazines.com/article/evolution-of-smart-phones-flagship-guide): Deep-dive into localized on-device AI silicon, periscope optics, silicon-carbon battery endurance, and foldable form factors.
+- [The Enduring Cinema and Cultural Impact of Julia Roberts](https://goldmagazines.com/article/enduring-cinema-cultural-impact-julia-roberts): An in-depth exploration into the illustrious career, historic achievements, and cultural resonance of Julia Roberts.
+
+## Institutional & Legal
+- [About Us](https://goldmagazines.com/about): Background, editorial standards, and mission.
+- [Contact Us](https://goldmagazines.com/contact): Communications desk, press inquiries, and bureau contacts.
+- [Privacy Policy](https://goldmagazines.com/privacy-policy): Reader data handling, cookies, and transparency.
+- [Disclaimer](https://goldmagazines.com/disclaimer): Educational and journalistic notice.
+- [Terms of Service](https://goldmagazines.com/terms): Intellectual property and access terms.

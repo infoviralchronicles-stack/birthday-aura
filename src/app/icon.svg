@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect x="9" y="9" width="50" height="50" rx="13" fill="#111111" />
+  <rect x="5" y="5" width="50" height="50" rx="13" fill="#ff1f5a" stroke="#111111" stroke-width="4" />
+  <text
+    x="30"
+    y="41"
+    text-anchor="middle"
+    fill="#ffffff"
+    font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+    font-weight="900"
+    font-size="31"
+    letter-spacing="-2"
+  >Ba</text>
+</svg>

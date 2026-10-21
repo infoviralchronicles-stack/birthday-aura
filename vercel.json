@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/ingest?secret=birthdayaura_cron_token_secure",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}

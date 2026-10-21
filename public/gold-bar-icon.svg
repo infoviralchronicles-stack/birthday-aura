@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <!-- Top facet gradient (brightest reflection) -->
+    <linearGradient id="goldTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF3C4"/>
+      <stop offset="30%" stop-color="#FCD34D"/>
+      <stop offset="60%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#B48B1B"/>
+    </linearGradient>
+
+    <!-- Front facet gradient -->
+    <linearGradient id="goldFront" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="50%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#78350F"/>
+    </linearGradient>
+
+    <!-- Right facet gradient (shadowed side) -->
+    <linearGradient id="goldRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B45309"/>
+      <stop offset="60%" stop-color="#92400E"/>
+      <stop offset="100%" stop-color="#451A03"/>
+    </linearGradient>
+
+    <!-- Metallic bevel highlight -->
+    <linearGradient id="bevelGleam" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="50%" stop-color="#FDE68A" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Shadow under gold bar -->
+    <radialGradient id="barShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Dark luxury backdrop circle -->
+  <rect width="100" height="100" rx="22" fill="#0c0d0e" stroke="#26231d" stroke-width="1.5"/>
+
+  <!-- Base soft drop shadow -->
+  <ellipse cx="50" cy="74" rx="34" ry="11" fill="url(#barShadow)"/>
+
+  <!-- GOLD BAR 3D ISOMETRIC BODY -->
+  <!-- 1. Right Side Facet -->
+  <polygon points="76,46 84,52 84,65 72,69 72,57 76,46" fill="url(#goldRight)"/>
+
+  <!-- 2. Front Side Facet -->
+  <polygon points="22,54 72,57 72,69 16,65 16,56 22,54" fill="url(#goldFront)"/>
+
+  <!-- 3. Main Top Trapezoid Face -->
+  <polygon points="34,31 66,28 76,46 22,54" fill="url(#goldTop)"/>
+
+  <!-- 4. Top Bevel Chamfer Edge Line -->
+  <polyline points="22,54 34,31 66,28 76,46" fill="none" stroke="url(#bevelGleam)" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="22" y1="54" x2="76" y2="46" stroke="#FEF08A" stroke-width="0.8" stroke-opacity="0.8"/>
+
+  <!-- 5. Front bottom edge highlight -->
+  <line x1="16" y1="65" x2="72" y2="69" stroke="#92400E" stroke-width="1"/>
+  <line x1="72" y1="69" x2="84" y2="65" stroke="#291203" stroke-width="1"/>
+
+  <!-- 6. Hallmark Embossed Stamp on Top Face: "999.9" & "FINE GOLD" -->
+  <g transform="rotate(7 50 40) skewX(-26)" opacity="0.85">
+    <text x="50" y="37" font-family="serif" font-size="6.5" font-weight="900" fill="#78350F" text-anchor="middle" letter-spacing="1">999.9</text>
+    <text x="50" y="43" font-family="sans-serif" font-size="3.2" font-weight="700" fill="#92400E" text-anchor="middle" letter-spacing="1.5">FINE GOLD</text>
+  </g>
+
+  <!-- Specular glint spark in top corner -->
+  <path d="M 64 29 Q 67 29 67 26 Q 67 29 70 29 Q 67 29 67 32 Q 67 29 64 29 Z" fill="#FFFFFF" opacity="0.95"/>
+</svg>
