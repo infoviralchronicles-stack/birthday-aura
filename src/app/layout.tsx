@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: '%s | Birthday Aura',
   },
   description:
-    'Discover today’s celebrity birthdays, explore star ages, professions, trivia, and complete biographies on Birthday Aura.',
+    "Today's celebrity birthdays, popular creator profiles, and verified star biographies. Find out who shares your birthday on Birthday Aura.",
   keywords: [
     'birthday aura',
     'todays birthdays',
