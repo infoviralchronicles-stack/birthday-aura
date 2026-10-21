@@ -30,6 +30,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/people/lana-rae.html',
+        destination: '/people/lana-rae',
+        permanent: true,
+      },
+      {
         source: '/people/:slug.html',
         destination: '/people/:slug',
         permanent: true,
