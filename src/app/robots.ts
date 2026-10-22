@@ -1,7 +1,7 @@
-﻿import { MetadataRoute } from 'next';
+import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://Birthday Aura.com';
+  const baseUrl = 'https://www.birthdayaura.com';
 
   return {
     rules: [
@@ -11,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/admin/', '/api/'],
       },
       {
-        userAgent: ['GPTBot', 'ChatGPT-User', 'Google-Extended', 'PerplexityBot', 'ClaudeBot', 'AnthropicAI', 'cohere-ai'],
+        userAgent: ['Googlebot', 'Bingbot', 'GPTBot', 'ChatGPT-User', 'Google-Extended', 'PerplexityBot', 'ClaudeBot', 'AnthropicAI', 'cohere-ai'],
         allow: '/',
       },
     ],

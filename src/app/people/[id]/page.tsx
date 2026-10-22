@@ -34,10 +34,38 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const currentYear = new Date().getFullYear();
   const age = Math.max(1, currentYear - celeb.birthYear);
   const monthName = MONTH_NAMES[celeb.birthMonth - 1];
+  const canonicalUrl = `https://www.birthdayaura.com/people/${celeb.id}`;
+  const imageUrl = celeb.image.startsWith('http')
+    ? celeb.image
+    : `https://www.birthdayaura.com${celeb.image}`;
 
   return {
     title: `${celeb.name} - Age, Family, Bio | Birthday Aura`,
     description: `${celeb.name} (${celeb.profession}) was born on ${monthName} ${celeb.birthDay}, ${celeb.birthYear} in ${celeb.birthplace} (${age} years old). Discover ${celeb.name}'s biography, Before Fame, Trivia, and Family Life.`,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${celeb.name} - Age, Family, Bio | Birthday Aura`,
+      description: `${celeb.name} (${celeb.profession}) was born on ${monthName} ${celeb.birthDay}, ${celeb.birthYear} in ${celeb.birthplace}.`,
+      url: canonicalUrl,
+      siteName: 'Birthday Aura',
+      images: [
+        {
+          url: imageUrl,
+          width: 600,
+          height: 600,
+          alt: celeb.name,
+        },
+      ],
+      type: 'profile',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${celeb.name} | Birthday Aura`,
+      description: `${celeb.name} - ${celeb.profession} born on ${monthName} ${celeb.birthDay}, ${celeb.birthYear}.`,
+      images: [imageUrl],
+    },
   };
 }
 
@@ -77,6 +105,28 @@ export default function CelebrityProfilePage({ params }: Props) {
 
   return (
     <div className="bg-white min-h-screen text-gray-900 pb-16">
+      {/* Schema.org Person Structured Data for Rapid Google Knowledge Graph & Rich Results */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: celeb.name,
+            jobTitle: celeb.profession,
+            birthDate: `${celeb.birthYear}-${String(celeb.birthMonth).padStart(2, '0')}-${String(celeb.birthDay).padStart(2, '0')}`,
+            birthPlace: {
+              '@type': 'Place',
+              name: celeb.birthplace,
+            },
+            image: celeb.image.startsWith('http')
+              ? celeb.image
+              : `https://www.birthdayaura.com${celeb.image}`,
+            description: celeb.about,
+            url: `https://www.birthdayaura.com/people/${celeb.id}`,
+          }),
+        }}
+      />
       <div className="max-w-[1220px] mx-auto px-4 sm:px-8 pt-6 space-y-10">
         {/* Top Breadcrumb Bar */}
         <div className="flex items-center justify-between border-b border-gray-100 pb-4">

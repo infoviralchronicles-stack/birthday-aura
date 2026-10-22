@@ -1,11 +1,16 @@
-﻿import { MetadataRoute } from 'next';
+import { MetadataRoute } from 'next';
 import { prisma } from '@/lib/prisma';
+import { CELEBRITY_DIRECTORY } from '@/lib/birthdayData';
+
+function toSlug(text: string): string {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://Birthday Aura.com';
+  const baseUrl = 'https://www.birthdayaura.com';
 
-  // 1. Static Pages
-  const staticRoutes = [
+  // 1. Static Core Pages
+  const staticRoutes: MetadataRoute.Sitemap = [
     '',
     '/about',
     '/editorial-policy',
@@ -21,7 +26,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === '' ? 1.0 : 0.8,
   }));
 
-  // 2. Dynamic Articles
+  // 2. All Celebrity Profile Pages (Top Priority for Google Search Indexing)
+  const peopleRoutes: MetadataRoute.Sitemap = CELEBRITY_DIRECTORY.map((celeb) => ({
+    url: `${baseUrl}/people/${celeb.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'daily' as const,
+    priority: 0.95,
+  }));
+
+  // 3. Unique Profession Directory Pages
+  const uniqueProfessions = Array.from(
+    new Set(CELEBRITY_DIRECTORY.map((c) => toSlug(c.profession)))
+  );
+  const professionRoutes: MetadataRoute.Sitemap = uniqueProfessions.map((slug) => ({
+    url: `${baseUrl}/profession/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.85,
+  }));
+
+  // 4. Dynamic Articles
   let articleRoutes: MetadataRoute.Sitemap = [];
   try {
     const now = new Date();
@@ -44,7 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error fetching articles for sitemap:', err);
   }
 
-  // 3. Dynamic Categories
+  // 5. Dynamic Categories
   let categoryRoutes: MetadataRoute.Sitemap = [];
   try {
     const categories = await prisma.category.findMany({
@@ -61,6 +85,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.error('Error fetching categories for sitemap:', err);
   }
 
-  return [...staticRoutes, ...categoryRoutes, ...articleRoutes];
+  return [...staticRoutes, ...peopleRoutes, ...professionRoutes, ...categoryRoutes, ...articleRoutes];
 }
-
