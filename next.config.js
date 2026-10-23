@@ -15,6 +15,16 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/january15.html',
+        destination: '/birthdays/january-15',
+        permanent: true,
+      },
+      {
+        source: '/january15',
+        destination: '/birthdays/january-15',
+        permanent: true,
+      },
+      {
         source: '/july18.html',
         destination: '/birthdays/july-18',
         permanent: true,
