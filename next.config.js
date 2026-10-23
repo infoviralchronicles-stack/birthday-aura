@@ -65,6 +65,66 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/july18.html',
+        destination: '/birthdays/july-18',
+        permanent: true,
+      },
+      {
+        source: '/july18',
+        destination: '/birthdays/july-18',
+        permanent: true,
+      },
+      {
+        source: '/july30.html',
+        destination: '/birthdays/july-30',
+        permanent: true,
+      },
+      {
+        source: '/july30',
+        destination: '/birthdays/july-30',
+        permanent: true,
+      },
+      {
+        source: '/names/:slug.html',
+        destination: '/search?q=:slug',
+        permanent: true,
+      },
+      {
+        source: '/names/:slug',
+        destination: '/search?q=:slug',
+        permanent: true,
+      },
+      {
+        source: '/shows/:slug.html',
+        destination: '/search?q=:slug',
+        permanent: true,
+      },
+      {
+        source: '/shows/:slug',
+        destination: '/search?q=:slug',
+        permanent: true,
+      },
+      {
+        source: '/movies/:slug.html',
+        destination: '/search?q=:slug',
+        permanent: true,
+      },
+      {
+        source: '/movies/:slug',
+        destination: '/search?q=:slug',
+        permanent: true,
+      },
+      {
+        source: '/age/:slug.html',
+        destination: '/search?q=:slug',
+        permanent: true,
+      },
+      {
+        source: '/age/:slug',
+        destination: '/search?q=:slug',
+        permanent: true,
+      },
+      {
         source: '/:path*.html',
         destination: '/:path*',
         permanent: true,
