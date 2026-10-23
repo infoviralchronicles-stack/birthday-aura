@@ -15,56 +15,6 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/profession/soccerplayer.html',
-        destination: '/profession/soccer-player',
-        permanent: true,
-      },
-      {
-        source: '/profession/soccerplayer',
-        destination: '/profession/soccer-player',
-        permanent: true,
-      },
-      {
-        source: '/profession/:slug.html',
-        destination: '/profession/:slug',
-        permanent: true,
-      },
-      {
-        source: '/people/lana-rae.html',
-        destination: '/people/lana-rae',
-        permanent: true,
-      },
-      {
-        source: '/people/:slug.html',
-        destination: '/people/:slug',
-        permanent: true,
-      },
-      {
-        source: '/birthdays/:slug.html',
-        destination: '/birthdays/:slug',
-        permanent: true,
-      },
-      {
-        source: '/pageantwinners/:slug.html',
-        destination: '/profession/model',
-        permanent: true,
-      },
-      {
-        source: '/pageantwinners/:path*',
-        destination: '/profession/model',
-        permanent: true,
-      },
-      {
-        source: '/pageantwinners.html',
-        destination: '/profession/model',
-        permanent: true,
-      },
-      {
-        source: '/pageantwinners',
-        destination: '/profession/model',
-        permanent: true,
-      },
-      {
         source: '/july18.html',
         destination: '/birthdays/july-18',
         permanent: true,
@@ -122,6 +72,56 @@ const nextConfig = {
       {
         source: '/age/:slug',
         destination: '/search?q=:slug',
+        permanent: true,
+      },
+      {
+        source: '/profession/soccerplayer.html',
+        destination: '/profession/soccer-player',
+        permanent: true,
+      },
+      {
+        source: '/profession/soccerplayer',
+        destination: '/profession/soccer-player',
+        permanent: true,
+      },
+      {
+        source: '/profession/:slug.html',
+        destination: '/profession/:slug',
+        permanent: true,
+      },
+      {
+        source: '/people/lana-rae.html',
+        destination: '/people/lana-rae',
+        permanent: true,
+      },
+      {
+        source: '/people/:slug.html',
+        destination: '/people/:slug',
+        permanent: true,
+      },
+      {
+        source: '/birthdays/:slug.html',
+        destination: '/birthdays/:slug',
+        permanent: true,
+      },
+      {
+        source: '/pageantwinners/:slug.html',
+        destination: '/profession/model',
+        permanent: true,
+      },
+      {
+        source: '/pageantwinners/:path*',
+        destination: '/profession/model',
+        permanent: true,
+      },
+      {
+        source: '/pageantwinners.html',
+        destination: '/profession/model',
+        permanent: true,
+      },
+      {
+        source: '/pageantwinners',
+        destination: '/profession/model',
         permanent: true,
       },
       {
