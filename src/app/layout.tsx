@@ -46,8 +46,25 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const orgSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Birthday Aura',
+    url: 'https://www.birthdayaura.com',
+    logo: 'https://www.birthdayaura.com/icon-192.png',
+    sameAs: [
+      'https://www.facebook.com/birthdayaura',
+    ],
+  };
+
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
+      </head>
       <body className={`${jakarta.variable} min-h-screen flex flex-col bg-white text-gray-900 antialiased font-sans`}>
         <Header />
         <main className="flex-1 bg-white">{children}</main>
