@@ -194,7 +194,7 @@ def main():
         print("[DRY RUN] Finished without publishing.")
         return
 
-    page_id = os.environ.get("FB_PAGE_ID", "").strip()
+    page_id = os.environ.get("FB_PAGE_ID", "106267869195816").strip()
     access_token = os.environ.get("FB_PAGE_ACCESS_TOKEN", "").strip()
 
     if not page_id or not access_token:
