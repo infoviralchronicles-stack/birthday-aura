@@ -85,6 +85,36 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/profession/age/youtubestar.html',
+        destination: '/profession/youtube-star',
+        permanent: true,
+      },
+      {
+        source: '/profession/age/youtubestar',
+        destination: '/profession/youtube-star',
+        permanent: true,
+      },
+      {
+        source: '/profession/age/:slug.html',
+        destination: '/profession/:slug',
+        permanent: true,
+      },
+      {
+        source: '/profession/age/:slug',
+        destination: '/profession/:slug',
+        permanent: true,
+      },
+      {
+        source: '/profession/youtubestar.html',
+        destination: '/profession/youtube-star',
+        permanent: true,
+      },
+      {
+        source: '/profession/youtubestar',
+        destination: '/profession/youtube-star',
+        permanent: true,
+      },
+      {
         source: '/profession/soccerplayer.html',
         destination: '/profession/soccer-player',
         permanent: true,
