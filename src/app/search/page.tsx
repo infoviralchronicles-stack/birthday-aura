@@ -218,12 +218,22 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const parsedDate = query ? parseDateQuery(query) : null;
 
   let matchingCelebrities: typeof CELEBRITY_DIRECTORY = [];
+  let fallbackCelebrities: typeof CELEBRITY_DIRECTORY = [];
 
   if (parsedDate) {
     if (parsedDate.type === 'exact-date' && parsedDate.month && parsedDate.day) {
       matchingCelebrities = CELEBRITY_DIRECTORY.filter(
         (c) => c.birthMonth === parsedDate.month && c.birthDay === parsedDate.day
       );
+      // If no exact celebrity profiles added for this specific day yet, provide same-month or popular stars as helpful suggestions
+      if (matchingCelebrities.length === 0) {
+        fallbackCelebrities = CELEBRITY_DIRECTORY.filter(
+          (c) => c.birthMonth === parsedDate.month
+        ).sort((a, b) => b.boosts - a.boosts);
+        if (fallbackCelebrities.length === 0) {
+          fallbackCelebrities = CELEBRITY_DIRECTORY.slice(0, 10);
+        }
+      }
     } else if (parsedDate.type === 'month-only' && parsedDate.month) {
       matchingCelebrities = CELEBRITY_DIRECTORY.filter(
         (c) => c.birthMonth === parsedDate.month
@@ -377,6 +387,65 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 </Link>
               );
             })}
+          </div>
+        </section>
+      ) : fallbackCelebrities.length > 0 ? (
+        <section className="space-y-6">
+          <div className="p-4 rounded-2xl bg-amber-50/80 border border-amber-200/70 text-gray-800 text-sm flex items-center justify-between flex-wrap gap-2">
+            <div>
+              <p className="font-bold text-amber-950">
+                Exact celebrity profiles for {parsedDate?.label} are being queued for publication.
+              </p>
+              <p className="text-gray-600 text-xs mt-0.5">
+                In the meantime, explore popular celebrities born in {parsedDate?.monthName || 'this month'}:
+              </p>
+            </div>
+            {parsedDate?.dateSlug && (
+              <Link
+                href={`/birthdays/${parsedDate.dateSlug}`}
+                className="px-3.5 py-1.5 rounded-full bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs transition-colors"
+              >
+                Go to {parsedDate.label} Hub →
+              </Link>
+            )}
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold text-gray-950">
+              Popular {parsedDate?.monthName} Birthdays
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-5">
+              {fallbackCelebrities.map((star) => {
+                const age = Math.max(1, currentYear - star.birthYear);
+                const starDate = `${MONTH_NAMES[star.birthMonth - 1]} ${star.birthDay}`;
+                return (
+                  <Link
+                    key={star.id}
+                    href={`/people/${star.id}`}
+                    className="group block bg-[#f8f8fa] rounded-[20px] p-2.5 border border-gray-200/70 hover:border-[#ff1f5a]/40 hover:shadow-md transition-all"
+                  >
+                    <div className="w-full aspect-square rounded-[16px] overflow-hidden bg-gray-100 mb-2.5 relative">
+                      <img
+                        src={star.image}
+                        alt={star.name}
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 backdrop-blur-xs text-[11px] font-semibold text-white">
+                        {starDate}
+                      </div>
+                    </div>
+                    <div className="px-1 pb-0.5">
+                      <h3 className="text-[15px] font-bold text-gray-950 leading-snug group-hover:text-[#ff1f5a] transition-colors truncate">
+                        {star.name}, {age}
+                      </h3>
+                      <p className="text-[13px] text-gray-600 leading-tight mt-0.5 truncate">
+                        {star.profession}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </section>
       ) : query ? (
