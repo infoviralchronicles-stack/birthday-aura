@@ -35,10 +35,10 @@ export default function Header() {
           <Search className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search celebrities, dates (e.g. Oct 24)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-transparent text-base sm:text-lg text-gray-900 placeholder-gray-700 focus:outline-none"
+            className="w-full bg-transparent text-base sm:text-lg text-gray-900 placeholder-gray-500 focus:outline-none"
           />
         </form>
 
