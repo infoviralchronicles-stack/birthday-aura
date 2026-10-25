@@ -85,6 +85,16 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/city/:slug.html',
+        destination: '/search?q=:slug',
+        permanent: true,
+      },
+      {
+        source: '/city/:slug',
+        destination: '/search?q=:slug',
+        permanent: true,
+      },
+      {
         source: '/profession/age/youtubestar.html',
         destination: '/profession/youtube-star',
         permanent: true,
