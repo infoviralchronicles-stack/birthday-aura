@@ -20,7 +20,7 @@ export default function Footer() {
           <Link href="/blog" className="hover:text-[#ff1f5a] transition-colors">
             Blog
           </Link>
-          <Link href="/category/todays-birthdays" className="hover:text-[#ff1f5a] transition-colors">
+          <Link href="/birthdays/today" className="hover:text-[#ff1f5a] transition-colors">
             Today&apos;s Birthdays
           </Link>
           <Link href="/category/creators-streamers" className="hover:text-[#f50076] transition-colors">
