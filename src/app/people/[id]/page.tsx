@@ -8,7 +8,10 @@ import {
   ZODIAC_DETAILS,
   getZodiacSign,
 } from '@/lib/birthdayData';
-import { Star, Calendar, MapPin, Sparkles, ArrowLeft, Flame } from 'lucide-react';
+import SmartBiographyText, {
+  findMentionedCelebrities,
+} from '@/components/birthday/SmartBiographyText';
+import { Star, Calendar, MapPin, Sparkles, ArrowLeft, Flame, Users, HeartHandshake } from 'lucide-react';
 
 interface Props {
   params: { id: string };
@@ -102,6 +105,19 @@ export default function CelebrityProfilePage({ params }: Props) {
     (c) =>
       c.id !== celeb.id && !relatedCelebrities.some((rel) => rel.id === c.id)
   ).slice(0, 5);
+
+  // Smart internal linking: Detect mentioned family and associated stars
+  const mentionedFamily = findMentionedCelebrities(
+    celeb.familyLife,
+    celeb.id,
+    CELEBRITY_DIRECTORY
+  );
+
+  const mentionedAssociated = findMentionedCelebrities(
+    celeb.associatedWith,
+    celeb.id,
+    CELEBRITY_DIRECTORY
+  );
 
   return (
     <div className="bg-white min-h-screen text-gray-900 pb-16">
@@ -239,51 +255,131 @@ export default function CelebrityProfilePage({ params }: Props) {
             </div>
           </div>
 
-          {/* Right Column: Full Biography Sections (Clean Open Text — No Box Style) */}
+          {/* Right Column: Full Biography Sections (Clean Open Text with Smart Internal Links) */}
           <div className="lg:col-span-8 space-y-8 pt-1">
             <div>
               <h2 className="text-lg sm:text-xl font-black text-gray-950 mb-2">
                 About
               </h2>
-              <p className="text-base sm:text-[17px] text-gray-800 leading-relaxed">
-                {celeb.about}
-              </p>
+              <SmartBiographyText
+                text={celeb.about}
+                currentId={celeb.id}
+                directory={CELEBRITY_DIRECTORY}
+              />
             </div>
 
             <div>
               <h2 className="text-lg sm:text-xl font-black text-gray-950 mb-2">
                 Before Fame
               </h2>
-              <p className="text-base sm:text-[17px] text-gray-800 leading-relaxed">
-                {celeb.beforeFame}
-              </p>
+              <SmartBiographyText
+                text={celeb.beforeFame}
+                currentId={celeb.id}
+                directory={CELEBRITY_DIRECTORY}
+              />
             </div>
 
             <div>
               <h2 className="text-lg sm:text-xl font-black text-gray-950 mb-2">
                 Trivia
               </h2>
-              <p className="text-base sm:text-[17px] text-gray-800 leading-relaxed">
-                {celeb.trivia}
-              </p>
+              <SmartBiographyText
+                text={celeb.trivia}
+                currentId={celeb.id}
+                directory={CELEBRITY_DIRECTORY}
+              />
             </div>
 
             <div>
               <h2 className="text-lg sm:text-xl font-black text-gray-950 mb-2">
                 Family Life
               </h2>
-              <p className="text-base sm:text-[17px] text-gray-800 leading-relaxed">
-                {celeb.familyLife}
-              </p>
+              <SmartBiographyText
+                text={celeb.familyLife}
+                currentId={celeb.id}
+                directory={CELEBRITY_DIRECTORY}
+              />
+
+              {/* Connected Family Members in Database */}
+              {mentionedFamily.length > 0 && (
+                <div className="mt-4 p-4 rounded-2xl bg-gradient-to-r from-pink-50/80 to-rose-50/50 border border-pink-100/80">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Users className="w-4 h-4 text-[#ff1f5a]" />
+                    <span className="text-xs font-black uppercase tracking-wider text-[#ff1f5a]">
+                      Family Members on Birthday Aura
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                    {mentionedFamily.map((fam) => (
+                      <Link
+                        key={fam.id}
+                        href={`/people/${fam.id}`}
+                        className="flex items-center gap-3 p-2.5 rounded-xl bg-white border border-pink-200/70 hover:border-[#ff1f5a] hover:shadow-md transition-all group"
+                      >
+                        <img
+                          src={fam.image}
+                          alt={fam.name}
+                          className="w-11 h-11 rounded-xl object-cover object-top border border-pink-100 flex-shrink-0"
+                        />
+                        <div className="min-w-0">
+                          <h4 className="text-sm font-bold text-gray-950 group-hover:text-[#ff1f5a] transition-colors truncate">
+                            {fam.name}
+                          </h4>
+                          <p className="text-xs text-gray-500 truncate">
+                            {fam.profession}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div>
               <h2 className="text-lg sm:text-xl font-black text-gray-950 mb-2">
                 Associated With
               </h2>
-              <p className="text-base sm:text-[17px] text-gray-800 leading-relaxed">
-                {celeb.associatedWith}
-              </p>
+              <SmartBiographyText
+                text={celeb.associatedWith}
+                currentId={celeb.id}
+                directory={CELEBRITY_DIRECTORY}
+              />
+
+              {/* Connected Associated Stars in Database */}
+              {mentionedAssociated.length > 0 && (
+                <div className="mt-4 p-4 rounded-2xl bg-gray-50/80 border border-gray-200/70">
+                  <div className="flex items-center gap-2 mb-3">
+                    <HeartHandshake className="w-4 h-4 text-blue-600" />
+                    <span className="text-xs font-black uppercase tracking-wider text-gray-700">
+                      Associated Stars on Birthday Aura
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                    {mentionedAssociated.map((conn) => (
+                      <Link
+                        key={conn.id}
+                        href={`/people/${conn.id}`}
+                        className="flex items-center gap-3 p-2.5 rounded-xl bg-white border border-gray-200/70 hover:border-[#ff1f5a] hover:shadow-md transition-all group"
+                      >
+                        <img
+                          src={conn.image}
+                          alt={conn.name}
+                          className="w-11 h-11 rounded-xl object-cover object-top border border-gray-100 flex-shrink-0"
+                        />
+                        <div className="min-w-0">
+                          <h4 className="text-sm font-bold text-gray-950 group-hover:text-[#ff1f5a] transition-colors truncate">
+                            {conn.name}
+                          </h4>
+                          <p className="text-xs text-gray-500 truncate">
+                            {conn.profession}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Birthday Aura & Zodiac Insights (Clean Open Text — No Boxes) */}
