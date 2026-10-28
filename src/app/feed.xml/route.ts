@@ -8,27 +8,27 @@ export async function GET() {
   const currentDay = now.getDate();
   const currentYear = now.getFullYear();
 
-  const tomorrow = new Date(now.getTime() + 86400000);
-  const tomorrowMonth = tomorrow.getMonth() + 1;
-  const tomorrowDay = tomorrow.getDate();
-
-  // 1. Today's celebrities
-  const todayStars = CELEBRITY_DIRECTORY.filter(
+  // Find today's birthday celebrities sorted by highest popularity/boosts
+  let todayStars = CELEBRITY_DIRECTORY.filter(
     (c) => c.birthMonth === currentMonth && c.birthDay === currentDay
   ).sort((a, b) => b.boosts - a.boosts);
 
-  // 2. Tomorrow's celebrities
-  const tomorrowStars = CELEBRITY_DIRECTORY.filter(
-    (c) => c.birthMonth === tomorrowMonth && c.birthDay === tomorrowDay
-  ).sort((a, b) => b.boosts - a.boosts);
-
-  let stars = [...todayStars, ...tomorrowStars];
-
-  if (stars.length === 0) {
-    stars = CELEBRITY_DIRECTORY.slice(0, 10);
+  // If today has less than 10, fill up with tomorrow's stars
+  let stars = [...todayStars];
+  if (stars.length < 10) {
+    const tomorrow = new Date(now.getTime() + 86400000);
+    const tomorrowMonth = tomorrow.getMonth() + 1;
+    const tomorrowDay = tomorrow.getDate();
+    const tomorrowStars = CELEBRITY_DIRECTORY.filter(
+      (c) => c.birthMonth === tomorrowMonth && c.birthDay === tomorrowDay
+    ).sort((a, b) => b.boosts - a.boosts);
+    stars = [...stars, ...tomorrowStars];
   }
 
-  const itemsXml = stars
+  // Strictly enforce Buffer's optimal daily limit: EXACTLY TOP 10 CELEBRITIES
+  const finalStars = stars.slice(0, 10);
+
+  const itemsXml = finalStars
     .map((star) => {
       const isToday = star.birthMonth === currentMonth && star.birthDay === currentDay;
       const age = currentYear - star.birthYear;
@@ -57,9 +57,9 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Birthday Aura — Celebrity Birthdays Today &amp; Tomorrow</title>
+    <title>Birthday Aura — Daily Top 10 Celebrity Birthdays</title>
     <link>${baseUrl}</link>
-    <description>Daily celebrity birthdays, verified ages, zodiac auras, and star biographies for today and tomorrow.</description>
+    <description>Daily verified celebrity birthdays, ages, zodiac auras, and biographies.</description>
     <language>en-us</language>
     <lastBuildDate>${now.toUTCString()}</lastBuildDate>
     <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml"/>
