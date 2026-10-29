@@ -1,12 +1,18 @@
 import { NextResponse } from 'next/server';
 import { CELEBRITY_DIRECTORY, MONTH_NAMES, getZodiacSign } from '@/lib/birthdayData';
 
+// Ensure the RSS feed is ALWAYS computed dynamically on every request so it updates automatically at midnight
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET() {
   const baseUrl = 'https://www.birthdayaura.com';
   const now = new Date();
-  const currentMonth = now.getMonth() + 1;
-  const currentDay = now.getDate();
-  const currentYear = now.getFullYear();
+  
+  // Use UTC or server date for consistent daily calendar matching
+  const currentMonth = now.getUTCMonth() + 1;
+  const currentDay = now.getUTCDate();
+  const currentYear = now.getUTCFullYear();
 
   // Find today's birthday celebrities sorted by highest popularity/boosts
   let todayStars = CELEBRITY_DIRECTORY.filter(
@@ -17,8 +23,8 @@ export async function GET() {
   let stars = [...todayStars];
   if (stars.length < 10) {
     const tomorrow = new Date(now.getTime() + 86400000);
-    const tomorrowMonth = tomorrow.getMonth() + 1;
-    const tomorrowDay = tomorrow.getDate();
+    const tomorrowMonth = tomorrow.getUTCMonth() + 1;
+    const tomorrowDay = tomorrow.getUTCDate();
     const tomorrowStars = CELEBRITY_DIRECTORY.filter(
       (c) => c.birthMonth === tomorrowMonth && c.birthDay === tomorrowDay
     ).sort((a, b) => b.boosts - a.boosts);
