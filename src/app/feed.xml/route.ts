@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { CELEBRITY_DIRECTORY, MONTH_NAMES, getZodiacSign } from '@/lib/birthdayData';
 
-// Ensure the RSS feed is ALWAYS computed dynamically on every request so it updates automatically at midnight
+// Ensure the RSS feed is ALWAYS computed dynamically on every request so it updates automatically
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
@@ -9,10 +9,14 @@ export async function GET() {
   const baseUrl = 'https://www.birthdayaura.com';
   const now = new Date();
   
-  // Use UTC or server date for consistent daily calendar matching
+  // Use UTC/Server date
   const currentMonth = now.getUTCMonth() + 1;
   const currentDay = now.getUTCDate();
   const currentYear = now.getUTCFullYear();
+  const dateKey = `${currentYear}-${String(currentMonth).padStart(2, '0')}-${String(currentDay).padStart(2, '0')}`;
+
+  // Deterministic daily pubDate at 00:00:00 GMT so RSS readers know it's a new daily edition
+  const dailyPubDate = new Date(Date.UTC(currentYear, currentMonth - 1, currentDay, 0, 0, 0)).toUTCString();
 
   // Find today's birthday celebrities sorted by highest popularity/boosts
   let todayStars = CELEBRITY_DIRECTORY.filter(
@@ -46,14 +50,16 @@ export async function GET() {
         : `Celebrating Tomorrow: Happy Early Birthday to ${star.name}! (${monthName} ${star.birthDay})`;
 
       const link = `${baseUrl}/people/${star.id}`;
+      // Daily-unique GUID ensures Buffer and RSS readers detect it as a fresh daily post
+      const guid = `${baseUrl}/people/${star.id}?date=${dateKey}`;
       const description = `${isToday ? 'Today' : 'Tomorrow'} we celebrate ${star.name} (${star.profession}) turning ${age}! Born on ${monthName} ${star.birthDay}, ${star.birthYear} in ${star.birthplace}. Zodiac Sign: ${zodiac}. Discover ${star.name}'s full biography, trivia, and family connections on Birthday Aura.`;
       const imageUrl = `${baseUrl}${star.image}`;
 
       return `    <item>
       <title><![CDATA[${title}]]></title>
       <link>${link}</link>
-      <guid isPermaLink="true">${link}</guid>
-      <pubDate>${now.toUTCString()}</pubDate>
+      <guid isPermaLink="false">${guid}</guid>
+      <pubDate>${dailyPubDate}</pubDate>
       <description><![CDATA[${description}]]></description>
       <enclosure url="${imageUrl}" length="0" type="image/jpeg" />
     </item>`;
