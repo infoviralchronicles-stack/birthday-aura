@@ -192,6 +192,18 @@ export default function CelebrityProfilePage({ params }: Props) {
               >
                 {celeb.profession}
               </Link>
+              {celeb.id === 'shah-rukh-khan' && (
+                <div className="pt-2.5">
+                  <Link
+                    href="/reels/shah-rukh-khan"
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 text-white font-extrabold text-xs px-4 py-2 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all"
+                  >
+                    <span>🎬</span>
+                    <span>Watch & Download 15s Birthday AI Reel</span>
+                    <span>→</span>
+                  </Link>
+                </div>
+              )}
             </div>
 
             {/* Quick Facts List (Clean Open Text — No Boxes) */}
